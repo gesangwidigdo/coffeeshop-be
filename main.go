@@ -24,6 +24,10 @@ func main() {
 	// Outlet Route
 	outletRoutes := r.Group("/outlet")
 	routes.OutletRoute(outletRoutes)
+
+	// Position Route
+	positionRoutes := r.Group("/position")
+	routes.PositionRoute(positionRoutes)
 	
 	r.Run()
 }
