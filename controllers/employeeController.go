@@ -30,12 +30,19 @@ func CreateEmployee(c *gin.Context) {
 		return
 	}
 
+	// Hash Password
+	hashedPassword, hashErr := utils.HashPassword(employeeInput.Password)
+
+	if hashErr != nil {
+		utils.ReturnResponse(http.StatusBadRequest, "hash failed", "error", hashErr.Error(), c)
+	}
+
 	// create employee
 	employee := models.Employee{
 		Employee_name:    employeeInput.Employee_name,
 		Telephone_number: employeeInput.Telephone_number,
 		Username:         employeeInput.Username,
-		Password:         employeeInput.Password,
+		Password:         hashedPassword,
 		Address:          employeeInput.Address,
 		Gender:           employeeInput.Gender,
 		Position_id:      employeeInput.Position_id,
