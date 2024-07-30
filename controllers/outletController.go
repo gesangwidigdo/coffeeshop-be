@@ -10,6 +10,31 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func CreateOutlet(c *gin.Context) {
+	var outletInput dto.OutletDTO
+
+	// Get Data from req body
+	if bindErr := utils.BindData(&outletInput, c); !bindErr {
+		return
+	}
+
+	// Create outlet
+	outlet := models.Outlet{
+		Outlet_name: outletInput.Outlet_name,
+		Address:     outletInput.Address,
+		City:        outletInput.City,
+	}
+
+	result := initializers.DB.Omit("Employees").Create(&outlet)
+
+	if result.Error != nil {
+		utils.ReturnResponse(http.StatusBadRequest, "Failed to create data", "", nil, c)
+		return
+	}
+
+	utils.ReturnResponse(http.StatusCreated, "ok", "data", outlet, c)
+}
+
 func GetAllOutlet(c *gin.Context) {
 	var outlet []models.Outlet
 	result := initializers.DB.Find(&outlet)
@@ -36,31 +61,6 @@ func GetOutletByID(c *gin.Context) {
 	}
 
 	utils.ReturnResponse(http.StatusOK, "ok", "data", outlet, c)
-}
-
-func CreateOutlet(c *gin.Context) {
-	var outletInput dto.OutletDTO
-
-	// Get Data from req body
-	if bindErr := utils.BindData(&outletInput, c); !bindErr {
-		return
-	}
-
-	// Create outlet
-	outlet := models.Outlet{
-		Outlet_name: outletInput.Outlet_name,
-		Address:     outletInput.Address,
-		City:        outletInput.City,
-	}
-
-	result := initializers.DB.Omit("Employees").Create(&outlet)
-
-	if result.Error != nil {
-		utils.ReturnResponse(http.StatusBadRequest, "Failed to create data", "", nil, c)
-		return
-	}
-
-	utils.ReturnResponse(http.StatusCreated, "ok", "data", outlet, c)
 }
 
 func UpdateOutlet(c *gin.Context) {
