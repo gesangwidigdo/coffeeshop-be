@@ -13,4 +13,7 @@ func AllRoute(r *gin.Engine) {
 
 	employeeRoutes := r.Group("/employee")
 	EmployeeRoute(employeeRoutes)
+
+	ingredientRoutes := r.Group("/ingredient")
+	IngredientRoute(ingredientRoutes)
 }

@@ -15,5 +15,6 @@ func main() {
 		&models.Outlet{},
 		&models.Position{},
 		&models.Employee{},
+		&models.Ingredient{},
 	)
 }
