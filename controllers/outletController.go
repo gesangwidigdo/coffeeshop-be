@@ -53,7 +53,7 @@ func CreateOutlet(c *gin.Context) {
 		City:        outletInput.City,
 	}
 
-	result := initializers.DB.Create(&outlet)
+	result := initializers.DB.Omit("Employees").Create(&outlet)
 
 	if result.Error != nil {
 		utils.ReturnResponse(http.StatusBadRequest, "Failed to create data", "", nil, c)

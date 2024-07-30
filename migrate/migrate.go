@@ -14,5 +14,6 @@ func main() {
 	initializers.DB.AutoMigrate(
 		&models.Outlet{},
 		&models.Position{},
+		&models.Employee{},
 	)
 }

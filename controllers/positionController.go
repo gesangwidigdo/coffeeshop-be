@@ -52,7 +52,7 @@ func CreatePosition(c *gin.Context) {
 		Position_name: positionInput.Position_name,
 	}
 
-	result := initializers.DB.Create(&position)
+	result := initializers.DB.Omit("Employees").Create(&position)
 
 	if result.Error != nil {
 		utils.ReturnResponse(http.StatusBadRequest, "failed to create data", "", nil, c)

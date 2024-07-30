@@ -14,5 +14,6 @@ func main() {
 	initializers.DB.Migrator().DropTable(
 		&models.Outlet{},
 		&models.Position{},
+		&models.Employee{},
 	)
 }
